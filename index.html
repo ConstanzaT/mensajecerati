@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gustavo Cerati Player</title>
+    <link rel="preconnect" href="https://api.deezer.com" />
+    <link rel="preconnect" href="https://e-cdns-preview.dzcdn.net" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient-controls" aria-label="Modos ambientales">
+      <button id="rainToggle" type="button" class="ambient-toggle rain-toggle" aria-pressed="false" title="Modo Noche / Lluvia">
+        <span class="ambient-toggle-icon rain-toggle-icon" aria-hidden="true"></span>
+        <span id="rainToggleText">Noche / Lluvia</span>
+      </button>
+      <button id="waterToggle" type="button" class="ambient-toggle water-toggle" aria-pressed="false" title="Modo Agua / Mar">
+        <span class="ambient-toggle-icon water-toggle-icon" aria-hidden="true"></span>
+        <span id="waterToggleText">Modo Agua / Mar</span>
+      </button>
+      <button id="windToggle" type="button" class="ambient-toggle wind-toggle" aria-pressed="false" title="Modo Viento">
+        <span class="ambient-toggle-icon wind-toggle-icon" aria-hidden="true"></span>
+        <span id="windToggleText">Modo Viento</span>
+      </button>
+      <button id="fireToggle" type="button" class="ambient-toggle fire-toggle" aria-pressed="false" title="Modo Fuego">
+        <span class="ambient-toggle-icon fire-toggle-icon" aria-hidden="true"></span>
+        <span id="fireToggleText">Fuego</span>
+      </button>
+    </div>
+
+    <div id="rainLayer" class="rain-layer" aria-hidden="true">
+      <div class="rain-message">
+        <span id="ambientMessageTitle">Cerati se fue a dormir.</span>
+        <span id="ambientMessageSubtitle">Te desea buenas noches</span>
+      </div>
+      <div id="rainDrops" class="rain-drops"></div>
+      <div id="rainSplashes" class="rain-splashes"></div>
+      <div class="water-scene" aria-hidden="true">
+        <span class="water-wave water-wave-a"></span>
+        <span class="water-wave water-wave-b"></span>
+        <span class="water-wave water-wave-c"></span>
+        <span class="water-ripple water-ripple-a"></span>
+        <span class="water-ripple water-ripple-b"></span>
+      </div>
+      <div class="wind-scene" aria-hidden="true">
+        <span class="wind-gust wind-gust-a"></span>
+        <span class="wind-gust wind-gust-b"></span>
+        <span class="wind-gust wind-gust-c"></span>
+        <span class="wind-chime wind-chime-a"></span>
+        <span class="wind-chime wind-chime-b"></span>
+        <span class="wind-chime wind-chime-c"></span>
+      </div>
+      <div class="fire-scene" aria-hidden="true">
+        <span class="flame flame-a"></span>
+        <span class="flame flame-b"></span>
+        <span class="flame flame-c"></span>
+        <span class="ember ember-a"></span>
+        <span class="ember ember-b"></span>
+        <span class="ember ember-c"></span>
+      </div>
+      <div class="rain-ground"></div>
+    </div>
+
+    <div class="smoke-layer" aria-hidden="true">
+      <span class="smoke smoke-a"></span>
+      <span class="smoke smoke-b"></span>
+      <span class="smoke smoke-c"></span>
+      <span class="mist mist-a"></span>
+      <span class="mist mist-b"></span>
+    </div>
+
+    <div id="electricBackdrop" class="electric-backdrop" aria-hidden="true">
+      <div class="electric-grid"></div>
+      <div class="electric-wave electric-wave-a"></div>
+      <div class="electric-wave electric-wave-b"></div>
+      <div class="electric-particles">
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+        <span class="electric-particle"></span>
+      </div>
+      <span class="electric-bolt electric-bolt-a"></span>
+      <span class="electric-bolt electric-bolt-b"></span>
+    </div>
+
+    <main class="player-shell" aria-label="Reproductor de previews de Gustavo Cerati">
+      <div id="shootingStarLayer" class="shooting-star-layer" aria-hidden="true"></div>
+      <section class="visual-panel" aria-live="polite">
+        <div class="orbital-stage" id="visualizer" aria-hidden="true">
+          <div id="disc" class="disc">
+            <img id="cover" alt="Portada del álbum" />
+          </div>
+          <span class="ring ring-a"></span>
+          <span class="ring ring-b"></span>
+          <span class="pulse pulse-a"></span>
+          <span class="pulse pulse-b"></span>
+        </div>
+      </section>
+
+      <section class="control-panel">
+        <p class="artist">Gustavo Cerati</p>
+        <h1 id="title">Cargando canciones...</h1>
+        <p id="album" class="album">Buscando previews disponibles en Deezer</p>
+
+        <div class="lyric-strip" aria-label="Frase relacionada con la canción actual">
+          <p id="lyricLine">Preparando frase...</p>
+          <button id="copyLyric" type="button" class="copy-btn" aria-label="Copiar frase" title="Copiar frase">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="9" y="9" width="13" height="13" rx="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="status-row">
+          <span id="statusDot" class="status-dot"></span>
+          <span id="statusText">Conectando con Deezer</span>
+        </div>
+
+        <div class="progress-wrap" aria-label="Timeline circular del preview">
+          <button id="circularTimeline" type="button" class="circular-timeline" aria-label="Timeline circular">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="timeline-base" cx="60" cy="60" r="51"></circle>
+              <circle id="timelineProgress" class="timeline-progress" cx="60" cy="60" r="51"></circle>
+            </svg>
+            <span id="currentTime">0:00</span>
+          </button>
+          <input id="progress" class="sr-only" type="range" min="0" max="30" value="0" step="0.1" />
+          <span id="duration" class="sr-only">0:30</span>
+        </div>
+
+        <div class="controls" aria-label="Controles de reproducción">
+          <button id="prev" type="button" class="icon-btn" aria-label="Anterior aleatorio" title="Anterior aleatorio">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 20 9 12l10-8v16Z"></path>
+              <path d="M5 19V5"></path>
+            </svg>
+          </button>
+          <button id="play" type="button" class="play-btn" aria-label="Reproducir" title="Reproducir">
+            <svg id="playIcon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m8 5 11 7-11 7V5Z"></path>
+            </svg>
+          </button>
+          <button id="next" type="button" class="icon-btn" aria-label="Siguiente aleatorio" title="Siguiente aleatorio">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m5 4 10 8-10 8V4Z"></path>
+              <path d="M19 5v14"></path>
+            </svg>
+          </button>
+        </div>
+
+        <a id="deezerLink" class="deezer-link" href="#" target="_blank" rel="noreferrer">Abrir en Deezer</a>
+      </section>
+    </main>
+
+    <audio id="audio" preload="auto"></audio>
+    <audio id="audioB" preload="auto"></audio>
+    <script src="app.js"></script>
+  </body>
+</html>
